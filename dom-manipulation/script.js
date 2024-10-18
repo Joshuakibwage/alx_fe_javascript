@@ -19,4 +19,39 @@ function showRandomQuote(){
     //update the content of the div with text and category
     quoteDisplay.innerHTML = `<p>${randomQuote.text}</p><p>${randomQuote.category}</p>`;
 }
+
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+
+//function to add new quote
+
+function addQuote(){
+
+    //getting values from for input
+    const newQuoteText = document.getElementById('newQuoteText').value;
+
+    const newQuoteCategory = document.getElementById('newQuoteCategory').value;
+
+    if(newQuoteText && newQuoteCategory){
+
+        const newQuote = {
+            text: newQuoteText,
+            category: newQuoteCategory
+        };
+        //add new quotes into the quote array
+        quotes.push(newQuote);
+
+        //clearing fields after putting new quotes
+        document.getElementById('newQuoteText').value = '';
+        document.getElementById('newQuoteCategory').value = '';
+
+        //show new added quote
+        const quoteDisplay = document.getElementById('quoteDisplay');
+        quoteDisplay.innerHTML = `<p>${randomQuote.text}</p><p>${randomQuote.category}</p>`;
+
+        alert('Quote added successfully!');
+
+    }else {
+        alert('Please! Enter both quote and category.')
+    }
+}
+
