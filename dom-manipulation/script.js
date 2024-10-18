@@ -25,13 +25,14 @@ document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 function createAddQuoteForm(){
 
     const formElement = document.createElement('Form');
-    
+
     formElement.innerHTML = `
         <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
         <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
         <button onclick="addQuote()">Add Quote</button>
     `;
-    return formElement;
+
+    formElement.appendChild('form');
 }
 
 //function to add new quote
