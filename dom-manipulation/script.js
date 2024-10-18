@@ -11,7 +11,7 @@ const quotes = [
 
 function showRandomQuote(){
      
-    const random = math.floor(math.random() * quotes.length);
+    const random = math.floor(Math.random() * quotes.length);
       //get quote object
     const randomQuote =  quotes[random];
     //the div where the quote will be displayed
