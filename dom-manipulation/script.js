@@ -24,7 +24,7 @@ document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 
 function createAddQuoteForm(){
     const addQuoteForm = document.getElementById('addQuoteForm');
-    addQuoteForm.style.display = 'block';
+    
 }
 
 //function to add new quote
@@ -61,4 +61,3 @@ function addQuote(){
     
 }
 
-createAddQuoteForm()
