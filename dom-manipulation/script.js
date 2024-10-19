@@ -69,11 +69,42 @@ function addQuote(){
 }
 
 
-if(localStorage.getItem('quotes')){
+/*if(localStorage.getItem('quotes')){
     quotes = JSON.parse(localStorage.getItem('quotes'));
 }
-
+*/
 //save quotes to local storage
 function saveQuotes(){
+
     localStorage.setItem('quotes', JSON.stringify('quotes'));
 }
+
+//export JSON
+function exportToJsonFile(){
+
+    const dataString = JSON.stringify(quotes, null, 2);
+    const blob = new Blob ([dataString], {type: application/json});
+    const url = URL.createObjectURL(blob);
+
+    //
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'quotes.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  
+}
+
+
+//function to import quotes from a json file
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+      const importedQuotes = JSON.parse(event.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+  }
