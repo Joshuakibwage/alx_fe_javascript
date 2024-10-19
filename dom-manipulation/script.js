@@ -46,12 +46,11 @@ function addQuote(){
 
     if(newQuoteText && newQuoteCategory){
 
-        const newQuote = {
-            text: newQuoteText,
-            category: newQuoteCategory
-        };
-        //add new quotes into the quote array
-        quotes.push(newQuote);
+        
+        //add new quote to this array
+        quotes.push({text: newQuoteText, text: newQuoteCategory});
+
+        saveQuotes();
 
         //clearing fields after putting new quotes
         document.getElementById('newQuoteText').value = '';
@@ -69,3 +68,12 @@ function addQuote(){
     
 }
 
+
+if(localStorage.getItem('quotes')){
+    quotes = JSON.parse(localStorage.getItem('quotes'));
+}
+
+//save quotes to local storage
+function saveQuotes(){
+    localStorage.setItem('quotes', JSON.stringify('quotes'));
+}
