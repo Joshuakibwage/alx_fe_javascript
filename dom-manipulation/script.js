@@ -175,7 +175,7 @@ function importFromJsonFile(event) {
             method: 'POST',
             body: JSON.stringify(quote),
             headers: {
-                'content-Type': 'application/json'
+                'Content-Type': 'application/json'
             }
         });
 
