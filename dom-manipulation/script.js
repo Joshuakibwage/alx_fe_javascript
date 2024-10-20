@@ -69,10 +69,10 @@ function addQuote(){
 }
 
 
-/*if(localStorage.getItem('quotes')){
+if(localStorage.getItem('quotes')){
     quotes = JSON.parse(localStorage.getItem('quotes'));
 }
-*/
+
 //save quotes to local storage
 function saveQuotes(){
 
@@ -134,8 +134,16 @@ function importFromJsonFile(event) {
 
     if(filteredQuotes.length > 0) {
         const random = Math.floor(Math.random() * filteredQuotes.length);
-        const quotes = filteredQuotes[random];
-        quoteDisplay.innerHTML
+        const quote = filteredQuotes[random];
+        quoteDisplay.innerHTML = `'${quote.text}' - ${quote.category}`;
 
+    }else {
+        quoteDisplay.innerHTML = 'No quotes available for the selected category.';
     }
+  }
+
+  //calling populateCategories when page loads
+  window.onload = function() {
+    populateCategories();
+    showRandomQuote();
   }
