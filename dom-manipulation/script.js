@@ -147,3 +147,8 @@ function importFromJsonFile(event) {
     populateCategories();
     showRandomQuote();
   }
+
+  //
+  function fetchQuoteFromServer() {
+    
+  }
