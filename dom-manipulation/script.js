@@ -188,21 +188,44 @@ function importFromJsonFile(event) {
   }
 
   //function to resolve conflicts
-  async function resolveConflictsWithServer() {
-    try{
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const serverQuotes = await response.json();
-
-        const serverData = serverQuotes.map(item => ({
-            text: item.title,
-            category: 'Server'
-        }));
-
-        quotes = serverData;
-        saveQuotes();
-        alert('Conflict resolved: Server data took precedence.');
-    }catch (error) {
-        console.error('Error resolving conflicts with server:', error);
-      
+   // Function to sync local quotes with server
+async function syncQuotes() {
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const serverQuotes = await response.json();
+  
+      // Transform server data into the quote format
+      const serverData = serverQuotes.map(item => ({
+        text: item.title,
+        category: 'Server'
+      }));
+  
+      // Handle conflicts: server data takes precedence (you can modify this logic)
+      const mergedQuotes = resolveQuoteConflicts(serverData, quotes);
+  
+      // Update local quotes with the resolved data
+      quotes = mergedQuotes;
+      saveQuotes();
+  
+      alert('Quotes synced successfully!');
+    } catch (error) {
+      console.error('Error syncing quotes with the server:', error);
     }
   }
+  
+  // Function to resolve conflicts 
+  function resolveQuoteConflicts(serverQuotes, localQuotes) {
+    
+    const mergedQuotes = [...serverQuotes];  
+    
+    localQuotes.forEach(localQuote => {
+      if (!serverQuotes.some(serverQuote => serverQuote.text === localQuote.text)) {
+        mergedQuotes.push(localQuote);
+      }
+    });
+  
+    return mergedQuotes;
+  }
+  
+  setInterval(syncQuotes, 60000); 
+  
