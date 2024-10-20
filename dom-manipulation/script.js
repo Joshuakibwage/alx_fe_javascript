@@ -186,3 +186,23 @@ function importFromJsonFile(event) {
         console.error('Error posting quote to server:', error);
     }
   }
+
+  //function to resolve conflicts
+  async function resolveConflictsWithServer() {
+    try{
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const serverQuotes = await response.json();
+
+        const serverData = serverQuotes.map(item => ({
+            text: item.title,
+            category: 'Server'
+        }));
+
+        quotes = serverData;
+        saveQuotes();
+        alert('Conflict resolved: Server data took precedence.');
+    }catch (error) {
+        console.error('Error resolving conflicts with server:', error);
+      
+    }
+  }
