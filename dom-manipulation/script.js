@@ -149,11 +149,10 @@ function importFromJsonFile(event) {
   }
 
   //
-  function fetchQuoteFromServer() {
-    fetch(serverUrl)
-    .then(response => response.json());
-    .then(serverData => {
-        
-    })
+  async function fetchQuotesFromServer(){
+    try{
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const data = await response.json();
 
-  }
+    }
+  };
