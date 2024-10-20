@@ -148,11 +148,22 @@ function importFromJsonFile(event) {
     showRandomQuote();
   }
 
-  //
+  //fetching quotes from the server
   async function fetchQuotesFromServer(){
     try{
         const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         const data = await response.json();
 
+        const serverQuotes = data.map(item => ({
+            text: item.title,
+            category: 'server'
+        }));
+
+        quotes.push(...serverQuotes);
+        saveQuotes();
+        alert('Quote synced with server');
+
+    }catch(error){
+        console.error('Error fetching quotes from server', error);
     }
-  };
+  }
