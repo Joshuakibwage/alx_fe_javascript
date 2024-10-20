@@ -99,12 +99,29 @@ function exportToJsonFile(){
 
 //function to import quotes from a json file
 function importFromJsonFile(event) {
+
     const fileReader = new FileReader();
+
     fileReader.onload = function(event) {
       const importedQuotes = JSON.parse(event.target.result);
       quotes.push(...importedQuotes);
       saveQuotes();
       alert('Quotes imported successfully!');
     };
+
     fileReader.readAsText(event.target.files[0]);
+  }
+
+  //populate categories dynamically
+
+  function populateCategories(){
+    const categories = [...new set(quotes.map(quote => quote.category))];
+    const categoryFilter = document.getElementById('categoryFilter');
+
+    categories.forEach(category => {
+        const option = document.getElementById('option')
+        option.value = category;
+        option.text = category;
+        categoryFilter.appendChild(option);
+    });
   }
