@@ -129,7 +129,7 @@ function importFromJsonFile(event) {
   //filter quotes by category
   function filterQuotes() {
     const selectedCategory = document.getElementById('categoryFilter').value;
-    const filterQuotes = selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
+    const filteredQuotes = selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
     const quoteDisplay = document.getElementById('quoteDisplay');
 
     if(filteredQuotes.length > 0) {
@@ -150,5 +150,10 @@ function importFromJsonFile(event) {
 
   //
   function fetchQuoteFromServer() {
-    
+    fetch(serverUrl)
+    .then(response => response.json());
+    .then(serverData => {
+        
+    })
+
   }
