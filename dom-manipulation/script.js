@@ -121,7 +121,21 @@ function importFromJsonFile(event) {
     categories.forEach(category => {
         const option = document.getElementById('option')
         option.value = category;
-        option.text = category;
+        option.text = category.textContent;
         categoryFilter.appendChild(option);
     });
+  }
+
+  //filter quotes by category
+  function filterQuotes() {
+    const selectedCategory = document.getElementById('categoryFilter').value;
+    const filterQuotes = selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
+    const quoteDisplay = document.getElementById('quoteDisplay');
+
+    if(filteredQuotes.length > 0) {
+        const random = Math.floor(Math.random() * filteredQuotes.length);
+        const quotes = filteredQuotes[random];
+        quoteDisplay.innerHTML
+
+    }
   }
