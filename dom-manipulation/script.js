@@ -167,3 +167,22 @@ function importFromJsonFile(event) {
         console.error('Error fetching quotes from server', error);
     }
   }
+
+  //post quotes to server
+  async function postQuoteToServer(quote) {
+    try{
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: JSON.stringyfy(quote),
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+
+        const result = await response.json();
+        console.log('Quote posted to server:', result);
+
+    }catch(error){
+        console.error('Error posting quote to server:', error);
+    }
+  }
