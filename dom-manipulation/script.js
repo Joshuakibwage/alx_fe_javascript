@@ -213,10 +213,44 @@ async function syncQuotes() {
     }
   }
   
+ // Function to sync local quotes with server
+async function syncQuotes() {
+    // Show sync notification
+    const syncNotification = document.getElementById('syncNotification');
+    syncNotification.style.display = 'block';
+  
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const serverQuotes = await response.json();
+  
+      // Transform server data into the quote format
+      const serverData = serverQuotes.map(item => ({
+        text: item.title,
+        category: 'Server'
+      }));
+  
+      const mergedQuotes = resolveQuoteConflicts(serverData, quotes);
+  
+      // Update local quotes with the resolved data
+      quotes = mergedQuotes;
+      saveQuotes();
+  
+      // Notify user on successful sync
+      alert('Quotes synced with server!');
+    } catch (error) {
+      console.error('Error syncing quotes with the server:', error);
+    }
+  
+    // Hide sync notification after sync completes
+    setTimeout(() => {
+      syncNotification.style.display = 'none';
+    }, 2000);  
+  }
+  
   // Function to resolve conflicts 
   function resolveQuoteConflicts(serverQuotes, localQuotes) {
-    
-    const mergedQuotes = [...serverQuotes];  
+
+    const mergedQuotes = [...serverQuotes]; 
     
     localQuotes.forEach(localQuote => {
       if (!serverQuotes.some(serverQuote => serverQuote.text === localQuote.text)) {
