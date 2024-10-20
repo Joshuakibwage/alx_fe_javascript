@@ -173,9 +173,9 @@ function importFromJsonFile(event) {
     try{
         const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
-            body: JSON.stringyfy(quote),
+            body: JSON.stringify(quote),
             headers: {
-                'content-type': 'application/json'
+                'content-Type': 'application/json'
             }
         });
 
